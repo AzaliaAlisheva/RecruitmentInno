@@ -1,0 +1,121 @@
+<template>
+   <img class="background-image1" src="@/img/Vector (1).svg" alt="background">
+   <img class="background-image2" src="@/img/Vector (2).svg" alt="background">
+    
+    <div class="text">
+      <div class="logo">
+      <h2 class="logo_p1">Recruitment</h2>
+      <img class="logo_p2" src="@/img/iu_logo_green 1.svg" alt="university logo ">
+    </div>
+      <h1>We are glad to see you here!</h1>
+    <div class="links">
+   <RouterLink :to="`/vacancies`">
+        <div class="vac">
+           <h2> All Vacancies Page</h2>
+        </div>
+  </RouterLink>
+  <RouterLink :to="`/about`">
+        <div class="about">
+           <h2> About Page</h2>
+        </div>
+  </RouterLink>
+    </div>
+    </div>
+   
+</template>
+<script lang="ts">
+import '@/assets/global.css';
+import { defineComponent } from 'vue';
+import axios from 'axios';
+import { RouterLink } from 'vue-router';
+
+interface Vacancy {
+  id: number;
+  comment: string;
+  grade: string;
+  mark: number;
+  stack: string;
+  full_message: string;
+  // добавьте другие поля, если необходимо
+}
+// OPTIONS API
+export default defineComponent({
+  name: 'HomeView',
+  components: {
+   RouterLink
+  }
+});
+</script>
+<style scoped>
+h1{
+  font-family: League Spartan;
+  font-size: 45px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
+}
+.background-image1{
+  position: fixed;
+    bottom: 24px;
+    left: -469px;
+    width: 153%;
+}
+.background-image2{
+  position: fixed;
+  bottom: 0;
+  left: -115px;
+  width: 115%;
+}
+.logo_p1{
+  font-family: League Spartan;
+  font-size: 27px;
+  font-weight: 900;
+  line-height: 32px;
+  color:#FFFFFF;
+  margin-left: 91px;
+  margin-right: -79px;
+  padding-top: 60px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.logo{
+  display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+.text{
+   background-color: rgba(220, 220, 220, 0.356);
+   height: 254px;
+   margin-top: 60px;
+   background-size: 100%;
+   color: #ffffff;   
+   padding: 250px;
+   font-family: League Spartan;
+   font-size: 20px;
+   color: #1d1d1d;
+   text-decoration: none;
+   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.links{
+   display: flex;
+    flex-direction: row;
+    /* padding-left: 69px; */
+    align-items: center;
+    justify-content: center;
+    gap: 120px;
+}
+.vac{
+   font-size: 20px;
+   justify-self: start;
+   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   color: #ffffff;
+   font-weight: 300;
+}
+.about{
+   justify-self: start;
+   font-size: 20px;
+   justify-self: start;
+   color: #ffffff;
+   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+</style>
