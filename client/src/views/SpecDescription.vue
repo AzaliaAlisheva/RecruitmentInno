@@ -6,7 +6,6 @@
         <p> Name: {{ specialist.name }}</p>
         <p> Grade: {{ specialist.grade }}</p>
         <p> Stack: {{ specialist.stack }}</p>
-        <!-- <p> instruments: {{ specialist.instruments }}</p> -->
         <p> Experience: {{ specialist.experience }}</p>
         <p> Location: {{ specialist.location }}</p>
         <p> Regularity: {{ specialist.is_regular_staff }}</p>
@@ -22,7 +21,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
-// import { useRoute, RouterLink } from 'vue-router';
 
 interface Specialist {
   id: number;
@@ -41,15 +39,6 @@ interface Specialist {
   date: Date;
 }
 
-// interface Vacancy {
-//   id: number;
-//   comment: string;
-//   grade: string;
-//   stack: string;
-//   full_message: string;
-//   // добавьте другие поля, если необходимо
-// }
-
 export default defineComponent({
   name: 'SpecDescription',
   components: {
@@ -67,10 +56,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    // specialist: {
-    //   type: Object as PropType<Specialist>,
-    //   required: true
-    // },
+
     vacancyid: {
       type: Number,
       required: true,

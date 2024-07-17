@@ -8,7 +8,6 @@
       <VacancyInPrBox v-for="vacancy in VacanciesInProcessing" :key="vacancy.id" :vacancy="vacancy"/>
     </TabItem>
   </TabList>
-
 </template>
 
 <script lang="ts">

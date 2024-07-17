@@ -31,7 +31,6 @@ interface Specialist {
   mark: number;
   grade: string;
   stack: string;
-  // добавьте другие поля, необходимо
 }
 
 interface Connect {
@@ -41,10 +40,6 @@ interface Connect {
   "vacancy": number,
   "specialist": number,
 }
-
-// const axiosInstance = axios.create({
-//   baseURL: 'http://10.90.138.241:8000', // Change this to your backend URL
-// });
 
 export default defineComponent({
   data() {
@@ -58,7 +53,7 @@ export default defineComponent({
     this.getConnect();
   },
   name: 'SpecialistBox',
-  // это способ передачи данных от родительского компонента к дочернему компоненту в Vue.js.
+
   props: {
     specialist: {
       type: Object as PropType<Specialist>,
@@ -85,21 +80,17 @@ export default defineComponent({
         try {
           this.ellipse2Src = require('@/img/redpicked.png');
           this.ellipse1Src = require('@/img/greeninit.png');
-          const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": 0 });
-
-          // this.updateSpecmark(0);
+          await axios.patch('main/connect/' + this.connectId + '/', { "specmark": 0 });
         }
         catch (error) {
           console.error(error);
         }
       } else {
         this.ellipse2Src = require('@/img/redinit.png');
-        // const response = await axios.patch(`main/specialists/` + this.specialist.id + '/', { "mark": -1 });
-        const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
-        // return response.data;
-        // this.updateSpecmark(-1);
+        await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
       }
     },
+
     async changeOnGreen() {
       const response = await axios.get('main/connect/' + this.connectId);
       let con = response.data as Connect;
@@ -107,22 +98,17 @@ export default defineComponent({
         try {
           this.ellipse1Src = require('@/img/greenpicked.png');
           this.ellipse2Src = require('@/img/redinit.png');
-          // const response = await axios.patch(`main/specialists/` + this.specialist.id + '/', { "mark": 1 });
-          const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": 1 });
-          // return response.data;
-          // this.updateSpecmark(1);
+          await axios.patch('main/connect/' + this.connectId + '/', { "specmark": 1 });
         } catch (error) {
           console.error(error);
         }
       } else {
         this.ellipse1Src = require('@/img/greeninit.png');
-        // const response = await axios.patch(`main/specialists/` + this.specialist.id + '/', { "mark": -1 });
-        const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
-        // return response.data;
-        // this.updateSpecmark(-1);
+        await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
 
       }
     },
+
     async getConnect() {
       try {
         const response = await axios.get('main/connect/');
@@ -154,7 +140,6 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   position: relative;
-
 }
 
 .spec_flags {
@@ -180,25 +165,11 @@ export default defineComponent({
   top: 18px;
 }
 
-.vac_data {
-  color: rgb(0, 0, 0);
-  font-family: League Spartan;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0%;
-  text-align: left;
-
-}
-
 .text {
   display: relative;
   flex-direction: column;
-  /* gap: 10px; */
   display: flex;
   padding-left: 73px;
-  /* align-self: start; */
-  /* justify-content: flex-start; */
   align-items: flex-start;
 }
 </style>

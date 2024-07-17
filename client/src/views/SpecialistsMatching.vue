@@ -5,85 +5,31 @@
       <TabItem title="Vacancy">
         <p>{{ vacancy.full_message }}</p>
         <button id="button_vac" @click="changeProcessingStatus">
-          <p class="button_vac_text" id="button_vac_text"></p>
+          {{  buttonText }}
         </button>
       </TabItem>
       <TabItem title="Specialists">
         <SpecialistBox v-for="specialist in specialists" :key="specialist.id" :specialist="specialist"
-            :vacancyid="vacancy.id" class="column is-4" />
+            :vacancyid="vacancy.id"/>
       </TabItem>
       <TabItem title="Specialists in processing">
         <SpecialistInPrBox v-for="specialist in specialistsInProcessing" :key="specialist.id" :vacancyid="vacancy.id"
-            :specialist="specialist" class="column is-4" />
+            :specialist="specialist"/>
       </TabItem>
       <TabItem title="Recently Deleted">
         <SpecialistDelBox v-for="specialist in recentlyDeleted" :vacancyid="vacancy.id" :key="specialist.id"
-            :specialist="specialist" class="column is-4" />
+            :specialist="specialist"/>
       </TabItem>
       <TabItem title="Comments">
         <ul>
           <li v-for="(line, index) in commentLines" :key="index">{{ line }}</li>
         </ul>
         <form>
-          <input class="input" id="input" type="text">
+          <input class="input" id="input" type="text" v-model="inputText">
           <button class="button" @click="submitComment">Submit</button>
         </form>
       </TabItem>
     </TabList>
-    <!-- <div class="tables">
-      <div class="tables_tex">
-        <div class="vac">
-          <div class="vac_header">
-            <p>vacancy</p>
-          </div>
-          <p>{{ vacancy.full_message }}</p>
-        </div>
-        <div class="com">
-          <div class="com_header">
-            <p>comments</p>
-          </div>
-          <div class="comments__rendering">
-            <div v-if="commentLines.length">
-              <ul>
-                <li v-for="(line, index) in commentLines" :key="index">{{ line }}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="new__comment">
-            <input class="input" id="input" type="text">
-            <button class="button" @click="submitComment">Submit</button>
-          </div>
-        </div>
-      </div>
-      <div class="specialists">
-        <div class="spec">
-          <div class="spec_header">
-            <p>specialists</p>
-          </div>
-          <SpecialistBox v-for="specialist in specialists" :key="specialist.id" :specialist="specialist"
-            :vacancyid="vacancy.id" class="column is-4" />
-        </div>
-        <div class="button_vac" id="button_vac" @click="changeProcessingStatus">
-          <p class="button_vac_text" id="button_vac_text"></p>
-        </div>
-      </div>
-      <div class="flagTables">
-        <div class="specFlag">
-          <div class="specFlag_header">
-            <p>specialists in processing</p>
-          </div>
-          <SpecialistInPrBox v-for="specialist in specialistsInProcessing" :key="specialist.id" :vacancyid="vacancy.id"
-            :specialist="specialist" class="column is-4" />
-        </div>
-        <div class="specFlag">
-          <div class="specFlag_header">
-            <p>recently deleted</p>
-          </div>
-          <SpecialistDelBox v-for="specialist in recentlyDeleted" :vacancyid="vacancy.id" :key="specialist.id"
-            :specialist="specialist" class="column is-4" />
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -132,6 +78,8 @@ export default defineComponent({
       recentlyDeleted: [] as Specialist[],
       vacancy: {} as Vacancy,
       commentLines: [] as string[],
+      buttonText: "",
+      inputText: "",
     };
   },
   async mounted() {
@@ -159,35 +107,11 @@ export default defineComponent({
             }
           }
         }
-        // for (const specId of this.vacancy.specialists) {
-        //   const response = await axios.get('main/specialists/' + specId);
-        //   const specialist = response.data as Specialist;
-        //   const mark = await this.getSpecmark(specId);
-        //   if (mark === -1) {
-        //     this.specialists.push(specialist);
-        //   } else if (mark === 1) {
-        //     this.specialistsInProcessing.push(specialist);
-        //   } else {
-        //     this.recentlyDeleted.push(specialist);
-        //   }
-        // }
       } catch (error) {
         console.error(error);
       }
     },
-    // async getSpecmark(specialist_id: number) {
-    //   try {
-    //     const response = await axios.get('/get-specmark/', {
-    //       params: {
-    //         vacancy_id: this.vacancy.id,
-    //         specialist_id: specialist_id,
-    //       }
-    //     });
-    //     return response.data as number;
-    //   } catch (error) {
-    //     console.error('Error retrieving specmark:', error);
-    //   }
-    // },
+
     async getVacancy() {
       try {
         const response = await axios.get('main/vacancies/' + this.id);
@@ -196,57 +120,41 @@ export default defineComponent({
         console.error(error);
       }
     },
+
     async submitComment() {
-      const input = document.getElementById('input') as HTMLInputElement;
-      const comment = this.vacancy.comment + input.value + '/n';
+      if(!this.inputText) return;
+      const comment = this.vacancy.comment + this.inputText + '/n';
       await axios.patch(`main/vacancies/${this.vacancy.id}/`, { comment });
-      input.value = '';
-      this.commentLines.push(input.value);
-      location.reload();
+      this.inputText = '';
+      this.commentLines.push(this.inputText);
     },
+
     async drawSomeThings() {
-      const buttonText = document.getElementById('button_vac_text') as HTMLElement;
       const mark = this.vacancy.mark;
-      buttonText.textContent = mark === -1 ? 'Add to vacancy in Process' : 'Remove vacancy from Process';
+      this.buttonText = mark === -1 ? 'Add to vacancy in Process' : 'Remove vacancy from Process';
       this.commentLines = this.vacancy.comment ? this.vacancy.comment.split('/n') : [];
     },
+
     async changeProcessingStatus() {
-      const buttonText = document.getElementById('button_vac_text') as HTMLElement;
       const newMark = this.vacancy.mark === -1 ? 0 : -1;
       const response = await axios.patch(`main/vacancies/${this.vacancy.id}/`, { mark: newMark });
       this.vacancy.mark = newMark;
-      buttonText.textContent = newMark === -1 ? 'Add to vacancy in Process' : 'Remove vacancy from Process';
+      this.buttonText = newMark === -1 ? 'Add to vacancy in Process' : 'Remove vacancy from Process';
       location.reload();
-
       return response.data;
     },
-    // async viewSpecialistDetail(id: number) {
-    //   this.$router.push({ name: 'SpecDescription', params: { id } });
-    // },
   },
 });
 </script>
 
 <style scoped>
-/* .input {
-  background-color: rgb(219, 215, 215);
-  margin-bottom: 30px;
-  display: inline-block;
-  margin-left: 20px;
-} */
-
 #button_vac {
-  padding: 0 20px;
+  padding: 20px;
   border: 1px solid #E8E7E7;
-  margin: 0 auto;
   margin-bottom: 20px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   background: #E8E7E7;
-  /* margin-top: 20px; */
-  /* position: relative; */
-}
 
-.button_vac_text {
   color: rgb(0, 0, 0);
   font-family: League Spartan;
   font-size: 20px;
@@ -290,9 +198,21 @@ form > button {
     color: #fff;
 }
 
+/* p {
+  margin-top: 0;
+} */
+
 ul {
-  /* margin-top: 0; */
+  margin-top: 0;
   min-height: calc(100% - 3rem);
-  
+}
+
+li {
+  word-break: break-word;
+  padding: 0.5rem 1rem;
+}
+
+li:nth-child(odd) {
+    background-color: #f8f8f8;
 }
 </style>
