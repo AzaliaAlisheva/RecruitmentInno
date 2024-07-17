@@ -1,6 +1,6 @@
 <template>
     <h2>Log In</h2>
-    <form id="login" @submit.prevent="submitData" action="/">
+    <form id="login" class="authentication_form" @submit.prevent="submitData" action="/">
             <input placeholder="email" class="authentication_input" required v-model="emailInput">
             <input placeholder="password" class="authentication_input" required v-model="passwordInput">
 
@@ -102,7 +102,7 @@ export default defineComponent({
         margin: 0 auto;
     }
 
-    form {
+    .authentication_form {
         color: white;
         display: flex;
         width: 270px;
@@ -163,7 +163,7 @@ export default defineComponent({
             box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
         }
 
-        form {
+        .authentication_form {
             font-size: 30px;
             width: 550px;
             gap: 20px;
@@ -195,7 +195,7 @@ export default defineComponent({
             box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.25);
         }
 
-        form {
+        .authentication_form{
             width: 1050px;
             gap: 40px;
             font-size: 60px;

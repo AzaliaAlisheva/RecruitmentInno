@@ -1,6 +1,6 @@
 <template>
     <h2>Sign Up</h2>
-    <form id="register" @submit.prevent="submitData" action="/">
+    <form id="register" class="authentication_form" @submit.prevent="submitData" action="/">
         <input placeholder="email" class="authentication_input" required v-model="emailInput">
         <input placeholder="password" class="authentication_input" required v-model="passwordInput">
         <input placeholder="password" class="authentication_input" required v-model="passwordValidation">
