@@ -64,6 +64,7 @@ interface Vacancy {
   grade: string;
   mark: number;
   stack: string;
+  rate: number;
   full_message: string;
   // добавьте другие поля, если необходимо
 }
