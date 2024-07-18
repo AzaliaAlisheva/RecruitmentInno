@@ -1,25 +1,39 @@
 <template>
-  <RouterLink :to="`/vacancies/${vacancy.id}/`">
-    <div class="box_vacancy">
-      <div class="vac_data">
-        <p>{{ vacancy.id }}</p>
-        <p>{{ vacancy.full_message }}</p>
-        <!-- <p>{{ vacancy.stack }}</p> -->
+  <div class="vacancy">
+    <RouterLink :to="`/vacancies/${vacancy.id}/`">
+      <div class="box_vacancy">
+        <div class="vac_data">
+          <p>{{ vacancy.stack }}</p>
+          <p>{{ vacancy.grade }}</p>
+          <p>{{ vacancy.rate }}</p>
+        </div>
       </div>
+    </RouterLink>
+    <div class="deletion">
+      <img class="" :src="trash" alt="deletion" @click="triggerPopup">
     </div>
-  </RouterLink>
-
+    <DeletePopup v-if="popupTriggers.buttonTrigger">
+      <button @click="deleteVacancy">
+        Delete
+      </button>
+      <button @click="triggerPopup">Go Back</button>
+    </DeletePopup>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import axios from 'axios';
+import DeletePopup from '@/components/DeletePopup.vue'
+
 
 interface Vacancy {
   id: number;
   comment: string;
   grade: string;
   stack: string;
+  rate: number;
   full_message: string;
   // добавьте другие поля, если необходимо
 }
@@ -30,6 +44,17 @@ interface Vacancy {
 
 export default defineComponent({
   name: 'VacancyBox',
+  data() {
+    const popupTriggers = ref({
+      buttonTrigger: false,
+      timedTrigger: false,
+    })
+    return {
+      trash: require('@/img/trash.svg'),
+      popupTriggers
+    }
+  },
+
   // это способ передачи данных от родительского компонента к дочернему компоненту в Vue.js.
   props: {
     vacancy: {
@@ -38,28 +63,47 @@ export default defineComponent({
     }
   },
   components: {
-    RouterLink
+    RouterLink,
+    DeletePopup,
+  },
+  methods: {
+    triggerPopup() {
+      this.popupTriggers.buttonTrigger = !this.popupTriggers.buttonTrigger;
+    },
+    async deleteVacancy() {
+      this.trash = require('@/img/trash.svg');
+      await axios.delete('main/vacancies/' + this.vacancy.id);
+      this.triggerPopup();
+    },
+
   }
+
 });
 </script>
 
-<style>
-.box_vacancy {
-  border: 1px solid #494949;
-  background: rgb(73, 73, 73);
-  /* border-radius: 7px; */
-  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  /* display: flex; */
-  /* justify-content: center; */
-  margin-bottom: 8px;
-  /* height: 150px; */
-  overflow: hidden;
-
-  /* display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;  */
+<style scoped>
+.deletion {
+  padding: 5%;
 }
+
+.vacancy {
+  background: rgb(73, 73, 73);
+  border: 1px solid #494949;
+  margin-left: 5%;
+  margin-left: 5%;
+  box-shadow: inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 3px;
+}
+
+/* 
+.box_vacancy {
+} */
 
 .vac_data {
   color: white;
@@ -70,15 +114,45 @@ export default defineComponent({
   flex-direction: row;
   gap: 10px;
   padding: 10px;
+  text-decoration: none;
+  text-align: start;
 }
 
 @media(width: 1024px) {
+  .box_vacancy {
+    width: 300px;
+  }
+
+  .vac_data {
+    font-size: 16px;
+  }
+}
+
+@media(width: 1280px) {
+  .box_vacancy {
+    width: 450px;
+  }
+
+  .vac_data {
+    font-size: 16px;
+  }
+}
+
+@media(width: 1440px) {
+  .box_vacancy {
+    width: 480px;
+  }
+
   .vac_data {
     font-size: 16px;
   }
 }
 
 @media(width: 1920px) {
+  .box_vacancy {
+    width: 580px;
+  }
+
   .vac_data {
     font-size: 25px;
   }
