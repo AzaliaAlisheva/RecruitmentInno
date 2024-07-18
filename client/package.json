@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@types/vue": "^2.0.0",
+    "@types/vue-router": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli": "^5.0.8",
