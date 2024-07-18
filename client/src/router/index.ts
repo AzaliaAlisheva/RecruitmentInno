@@ -4,6 +4,7 @@ import HomeP from '../views/HomeP.vue'
 import SpecialistsMatching from '../views/SpecialistsMatching.vue'
 import SpecDescription from '../views/SpecDescription.vue'
 import AboutView from '../views/AboutView.vue'
+import CreateNewV from '@/views/CreateNewV.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/createVac',
+    name: 'createVac',
+    component: CreateNewV
   },
   {
     path: '/vacancies/:id/',

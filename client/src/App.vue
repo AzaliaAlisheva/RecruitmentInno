@@ -18,6 +18,9 @@ wrapper value around of all code
 </template>
 
 <style lang="scss" scoped>
+  a{
+    text-decoration: none;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -50,7 +53,7 @@ wrapper value around of all code
     color: #FFFFFF;
     margin-left: 91px;
     margin-right: -79px;
-    padding-top: 70px;
+    padding-top: 5%;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 

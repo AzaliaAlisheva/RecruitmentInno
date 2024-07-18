@@ -1,12 +1,13 @@
 <template>
-   <img class="background-image1" src="@/img/Vector (1).svg" alt="background">
+   <!-- <img class="background-image1" src="@/img/Vector (1).svg" alt="background">
    <img class="background-image2" src="@/img/Vector (2).svg" alt="background">
     
-    <div class="text">
+    
       <div class="logo">
       <h2 class="logo_p1">Recruitment</h2>
       <img class="logo_p2" src="@/img/iu_logo_green 1.svg" alt="university logo ">
-    </div>
+    </div> -->
+    <div class="text">
       <h1>We are glad to see you here!</h1>
     <div class="links">
    <RouterLink :to="`/vacancies`">
@@ -49,7 +50,7 @@ export default defineComponent({
 <style scoped>
 h1{
   font-family: League Spartan;
-  font-size: 45px;
+  font-size: 53px;
   font-weight: 500;
   color: #ffffff;
   margin: 0;
@@ -85,7 +86,7 @@ h1{
 }
 .text{
    background-color: rgba(220, 220, 220, 0.356);
-   height: 254px;
+   height: 110px;
    margin-top: 60px;
    background-size: 100%;
    color: #ffffff;   
@@ -94,12 +95,12 @@ h1{
    font-size: 20px;
    color: #1d1d1d;
    text-decoration: none;
-   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+   /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+   gap: 7%;
 }
 .links{
    display: flex;
     flex-direction: row;
-    /* padding-left: 69px; */
     align-items: center;
     justify-content: center;
     gap: 120px;
@@ -110,6 +111,7 @@ h1{
    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
    color: #ffffff;
    font-weight: 300;
+   text-decoration: none;
 }
 .about{
    justify-self: start;
