@@ -1,6 +1,6 @@
 <template>
 
-<div class="box_specialists">
+  <div class="box_specialists">
     <div class="spec_data">
       <img class="ellipse" :src="ellipse2Src" alt="ellipse" @click="changeOnRed" width="20px" height="20px">
       <div class="text">
@@ -60,9 +60,7 @@ export default defineComponent({
       console.log(mark);
       this.ellipse2Src = require('@/img/redinit.png');
       const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
-      // const response = await axios.patch(`main/specialists/` + this.specialist.id + '/', { "mark": -1 });
-      // return response.data;
-      // this.updateSpecmark(-1);
+      return response;
     },
     async getConnect() {
       try {

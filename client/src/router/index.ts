@@ -39,7 +39,17 @@ const routes: Array<RouteRecordRaw> = [
     name: 'SpecialistDescription',
     component: SpecDescription,
     props: true, 
-  }
+  },
+  // {
+  //   path: '/signup',
+  //   name: 'SignUp',
+  //   component: SignUpView,
+  // },
+  // {
+  //   path: '/login',
+  //   name: 'LogIn',
+  //   component: LogInView
+  // },
 ]
 
 const router = createRouter({

@@ -62,4 +62,11 @@ wrapper value around of all code
     flex-direction: row;
     justify-content: flex-start;
   }
+
+  
+  @media (max-width: 680px) {
+    #waves_gray {
+      bottom: 10px;
+    }
+  }
 </style>

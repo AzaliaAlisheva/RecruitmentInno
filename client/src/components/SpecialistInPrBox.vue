@@ -60,8 +60,7 @@ export default defineComponent({
       this.ellipse1Src = require('@/img/greeninit.png');
       // const response = await axios.patch(`main/specialists/` + this.specialist.id + '/', { "mark": -1 });
       const response = await axios.patch('main/connect/' + this.connectId + '/', { "specmark": -1 });
-      // return response.data;
-      // this.updateSpecmark(-1);
+      return response;
     },
     async getConnect() {
       try {

@@ -14,7 +14,6 @@
         <p> Name: {{ specialist.name }}</p>
         <p> Grade: {{ specialist.grade }}</p>
         <p> Stack: {{ specialist.stack }}</p>
-        <!-- <p> instruments: {{ specialist.instruments }}</p> -->
         <p> Experience: {{ specialist.experience }}</p>
         <p> Location: {{ specialist.location }}</p>
         <p> Regularity: {{ specialist.is_regular_staff }}</p>
@@ -76,10 +75,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    // specialist: {
-    //   type: Object as PropType<Specialist>,
-    //   required: true
-    // },
+
     vacancyid: {
       type: Number,
       required: true,

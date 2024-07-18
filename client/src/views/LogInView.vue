@@ -1,22 +1,22 @@
 <template>
     <h2>Log In</h2>
-    <form id="register" @submit.prevent="submitData" action="/">
-        <input placeholder="email" id="emailInput" required>
-        <input placeholder="password" id="passwordInput" required>
+    <form id="login" class="authentication_form" @submit.prevent="submitData" action="/">
+            <input placeholder="email" class="authentication_input" required v-model="emailInput">
+            <input placeholder="password" class="authentication_input" required v-model="passwordInput">
 
-        <div class="line">
-            <label class="left">
-                <input type="checkbox" id="remember_me" value="remember" />
-                Remember me
-            </label>
-            <a href="" id="forgot_password" class="right">Forgot password?</a>
-        </div>
+            <div class="line">
+                <label class="left">
+                    <input type="checkbox" id="remember_me" value="remember" />
+                    Remember me
+                </label>
+                <a href="" id="forgot_password" class="right">Forgot password?</a>
+            </div>
 
-        <button class="submit">Submit</button>
-        <div class="line">
-            <label class="left">Don't you have account?</label>
-            <a href="/signup" class="right">Register</a>
-        </div>
+            <button class="submit">Submit</button>
+            <div class="line">
+                <label class="left">Don't you have account?</label>
+                <a href="/signup" class="right">Register</a>
+            </div>
     </form>
 </template>
 
@@ -33,7 +33,10 @@ const correctPassword = "password";
 export default defineComponent({
     name: 'LogIn',
     data() {
-        return {}
+        return {
+            emailInput: "",
+            passwordInput: ""
+        }
     },
     mounted() {
         localStorage.removeItem('isAuthenticated');
@@ -42,17 +45,14 @@ export default defineComponent({
     methods: {
         async submitData(e: Event) {
             e.preventDefault();
-
             try {
-                const emailInput = (document.getElementById('emailInput') as HTMLInputElement).value;
-                const passwordInput = (document.getElementById('passwordInput') as HTMLInputElement).value;
-                const response = await axios.get('main/users/');
+               const response = await axios.get('main/users/');
 
-                if (passwordInput !== correctPassword) {
+                if (this.passwordInput !== correctPassword) {
                     alert("Wrong password");
                 } else {
                     for (const user of response.data as User[]) {
-                        if (user.email === emailInput) {
+                        if (user.email === this.emailInput) {
                             (e.target as HTMLFormElement).submit();
                             localStorage.setItem('isAuthenticated', 'true');
                             return true;
@@ -63,23 +63,22 @@ export default defineComponent({
             } catch (error) {
                 console.log(error);
             }
-
-            return false; // Return false if validation fails
+            return false;
         }
     }
 })
 </script>
 
 <style>
-    input {
+    .authentication_input {
         margin: 0 auto;
-        padding: 15px;
-        width: 220px;
+        padding: 15px 0;
+        text-indent: 15px;
+        width: 100%;
         border-radius: 18px;
         background-color: #67A14B;
-        display: flow;
+        /* display: flow; */
         border-width: 0;
-        margin-bottom: 10px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
         position: relative;
         z-index: 1;
@@ -91,7 +90,7 @@ export default defineComponent({
 
     .submit {
         padding: 15px;
-        width: 250px;
+        width: 100%;
         border-radius: 18px;
         background-color: #04041A;
         color: white;
@@ -103,33 +102,39 @@ export default defineComponent({
         margin: 0 auto;
     }
 
-    form {
+    .authentication_form {
         color: white;
-        display: inline-block;
+        display: flex;
+        width: 270px;
+        margin: 0 auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        gap: 10px;
     }
 
-    #remember_me {
+    input[type=checkbox] {
         width: auto;
         margin: 0;
-        margin-right: 5px;
+        margin-right: 3px;
         display: inline-block;
         vertical-align: middle;
     }
 
     label {
-        font-size: smaller;
+        /* font-size: smaller; */
         margin-right: 20px;
     }
 
     a {
         color: white;
-        font-size: smaller;
+        /* font-size: smaller; */
     }
 
 
     .line {
-        height: 15px;
-        margin: 10px;
+        /* height: 15px; */
+        margin: 0 10px;
         position: relative;
         z-index: 1;
     }
@@ -140,5 +145,69 @@ export default defineComponent({
 
     .left {
         float: left;
+    }
+
+    @media only screen and (min-width: 1920px) {
+        .authentication_input {
+            font-size: 30px;
+            border-radius: 40px;
+            padding: 30px 0;
+            text-indent: 30px;
+            box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .submit {
+            font-size: 30px;
+            padding: 30px;
+            border-radius: 40px;
+            box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .authentication_form {
+            font-size: 30px;
+            width: 550px;
+            gap: 20px;
+        }
+
+        .line {
+            margin: 0 30px;
+        }
+
+        input[type=checkbox] {
+            transform: scale(2);
+            margin-right: 20px;
+        }
+    }
+
+    @media only screen and (min-width: 3700px) {
+        .authentication_input {
+            font-size: 50px;
+            border-radius: 60px;
+            padding: 50px 0;
+            text-indent: 50px;
+            box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .submit {
+            font-size: 50px;
+            padding: 50px;
+            border-radius: 60px;
+            box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .authentication_form{
+            width: 1050px;
+            gap: 40px;
+            font-size: 60px;
+        }
+
+        .line {
+            margin: 0 50px;
+        }
+
+        input[type=checkbox] {
+            transform: scale(4);
+            margin-right: 30px;
+        }
     }
 </style>
