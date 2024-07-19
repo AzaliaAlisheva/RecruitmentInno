@@ -9,8 +9,9 @@
         </div>
       </div>
     </RouterLink>
-    <div class="deletion">
+    <div class="actions">
       <img class="" :src="trash" alt="deletion" @click="triggerPopup">
+      <img class="editButton" :src="editbutton" alt="edit" @click="triggerEdit">
     </div>
     <DeletePopup v-if="popupTriggers.buttonTrigger">
       <button class="deleteButton" @click="deleteVacancy">
@@ -18,6 +19,20 @@
       </button>
       <button class="goBackButton" @click="triggerPopup">Go Back</button>
     </DeletePopup>
+    <div v-if="popupTriggers.editTrigger">
+      <form class="input">
+        <input type="text" placeholder="Grade" v-model="vac.grade" required>
+        <input type="text" placeholder="Stack" v-model="vac.stack" required>
+        <input type="text" placeholder="Instruments" v-model="vac.instruments" required>
+        <input type="number" placeholder="Years of Experience" v-model="vac.experience" min="0" step="1" required>
+        <input type="number" placeholder="Rate (e.g., per hour)" v-model="vac.rate" min="0" step="any" required>
+        <input type="text" placeholder="Location" v-model="vac.location" required>
+        <input type="text" placeholder="Citizenship" v-model="vac.citizenship" required>
+        <input type="tel" placeholder="Contact Number" v-model="vac.contact" required>
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <button class="submitButton" @click="editVacancy">Submit</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -26,16 +41,23 @@ import { defineComponent, PropType, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
 import DeletePopup from '@/components/DeletePopup.vue'
-
+import EditV from '@/component/EditV.vue';
 
 interface Vacancy {
   id: number;
-  comment: string;
+  date: Date;
   grade: string;
   stack: string;
+  instruments: string;
+  experience: number;
+  is_regular_staff: string;
+  is_urgent: boolean;
+  type: boolean;
   rate: number;
-  full_message: string;
-  // добавьте другие поля, если необходимо
+  location: string;
+  citizenship: string;
+  contact: string;
+  mark: number;
 }
 
 // const axiosInstance = axios.create({
@@ -47,14 +69,30 @@ export default defineComponent({
   data() {
     const popupTriggers = ref({
       buttonTrigger: false,
-      timedTrigger: false,
+      editTrigger: false,
     })
     return {
       trash: require('@/img/trash.svg'),
-      popupTriggers
+      editbutton: require('@/img/edit.svg'),
+      popupTriggers,
+      errorMessage: '',
+      vac: {
+        id: this.vacancy.id,
+        date: this.vacancy.date,
+        grade: this.vacancy.grade,
+        stack: this.vacancy.stack,
+        instruments: this.vacancy.instruments,
+        experience: this.vacancy.experience,
+        type: this.vacancy.type,
+        is_regular_staff: this.vacancy.is_regular_staff,
+        is_urgent: this.vacancy.is_urgent,
+        rate: this.vacancy.rate,
+        location: this.vacancy.location,
+        citizenship: this.vacancy.citizenship,
+        contact: this.vacancy.contact,
+      } as Vacancy,
     }
   },
-
   // это способ передачи данных от родительского компонента к дочернему компоненту в Vue.js.
   props: {
     vacancy: {
@@ -67,6 +105,44 @@ export default defineComponent({
     DeletePopup,
   },
   methods: {
+    validateForm() {
+      if (this.vacancy.grade && this.vacancy.stack && this.vacancy.instruments && this.vacancy.experience && this.vacancy.rate &&
+        this.vacancy.location && this.vacancy.citizenship && this.vacancy.contact) {
+        this.editVacancy();
+      } else {
+        this.errorMessage = 'Please fill in all fields';
+      }
+    },
+    async editVacancy() {
+      try {
+        const response = await axios.put('main/vacancies/' + this.vacancy.id, {
+          "chat_id": this.vac.id,
+          "date": this.vac.date,
+          "grade": this.vac.grade,
+          "stack": this.vac.stack,
+          "instruments": this.vac.instruments,
+          "experience": this.vac.experience,
+          "is_regular_staff": this.vac.is_regular_staff,
+          "is_urgent": this.vac.is_urgent,
+          "type": this.vac.type,
+          "rate": this.vac.rate,
+          "location": this.vac.location,
+          "citizenship": this.vac.citizenship,
+          "contact": this.vac.contact,
+        });
+        console.log('Vacancy created successfully:', response.data);
+        alert('Vacancy created successfully');
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          console.error('Error creating vacancy:', error.response.data, this.vacancy);
+        } else {
+          console.error('Unknown error:', error);
+        }
+      }
+    },
+    triggerEdit() {
+      this.popupTriggers.editTrigger = !this.popupTriggers.editTrigger;
+    },
     triggerPopup() {
       this.popupTriggers.buttonTrigger = !this.popupTriggers.buttonTrigger;
     },
@@ -82,35 +158,76 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.deletion {
-  padding: 5%;
+.input {
+  display: flex;
+  flex-direction: column;
+  /* width: 43vw; */
+  /* gap: 15px; */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.deleteButton {
-  padding: 20px;
+.submitButton {
+  /* padding: 20px; */
   border: 1px solid #E8E7E7;
-  /* margin-bottom: 20px; */
   box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
   background: #E8E7E7;
 
   color: rgb(0, 0, 0);
   font-family: League Spartan;
+  /* font-size: 20px; */
+  line-height: 18px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="tel"] {
+  /* height: 35px; */
+  /* padding: 10px; */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.reg {
+  display: flex;
+  gap: 2%;
+  align-items: center;
+}
+
+/* input[type="checkbox"] {
+  /* width: 20px; */
+/* height: 20px; */
+/* } */
+.actions {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.deleteButton {
+  padding: 20px;
+  border: 1px solid #E8E7E7;
+  box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
+  background: #E8E7E7;
+  color: rgb(0, 0, 0);
+  font-family: League Spartan;
   font-size: 20px;
-  /* font-weight: 400; */
   line-height: 18px;
 }
 
 .goBackButton {
   padding: 20px;
   border: 1px solid #E8E7E7;
-  /* margin-bottom: 20px; */
   box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
   background: #E8E7E7;
-
   color: rgb(0, 0, 0);
   font-family: League Spartan;
   font-size: 20px;
-  /* font-weight: 400; */
   line-height: 18px;
 }
 

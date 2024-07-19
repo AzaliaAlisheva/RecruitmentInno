@@ -29,13 +29,21 @@ import DeletePopup from '@/components/DeletePopup.vue';
 
 interface Vacancy {
   id: number;
-  comment: string;
+  date: Date;
   grade: string;
   stack: string;
+  instruments: string;
+  experience: number;
+  is_regular_staff: string;
+  is_urgent: boolean;
+  type: boolean;
   rate: number;
-  full_message: string;
-  // добавьте другие поля, если необходимо
+  location: string;
+  citizenship: string;
+  contact: string;
+  mark: number;
 }
+
 
 export default defineComponent({
   name: 'VacancyBox',

@@ -5,6 +5,7 @@ import SpecialistsMatching from '../views/SpecialistsMatching.vue'
 import SpecDescription from '../views/SpecDescription.vue'
 import AboutView from '../views/AboutView.vue'
 import CreateNewV from '@/views/CreateNewV.vue'
+import EditV from '@/views/EditV.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/createVac',
     name: 'createVac',
     component: CreateNewV
+  },
+  {
+    path: '/editVac',
+    name: 'editVac',
+    component: EditV
   },
   {
     path: '/vacancies/:id/',

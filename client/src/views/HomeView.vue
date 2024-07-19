@@ -1,43 +1,29 @@
 <template>
-  <div class="appproc">
-    <!-- <img class="background-image1" src="@/img/Vector (1).svg" alt="background">
-    <img class="background-image2" src="@/img/Vector (2).svg" alt="background">
-
-    <RouterLink :to="`/`">
-      <div class="logo">
-      <h2 class="logo_p1">Recruitment</h2>
-      <img class="logo_p2" src="@/img/iu_logo_green 1.svg" alt="university logo ">
-    </div>
-    </RouterLink> -->
-
-    <!-- <p class="title" style="color: white;">Vacancies</p> -->
-    <div class="tables">
+  <div class="tables">
 
 
-      <div class="vac">
-        <div class="head">
-          <RouterLink :to="`/createVac`">
-            <div class="plus">
-              <img src="@/img/Plus.svg" alt="plus">
-            </div>
-          </RouterLink>
-          <div class="vac_header">
-            <p>New Vacancies</p>
+    <div class="vac">
+      <div class="head">
+        <RouterLink :to="`/createVac`">
+          <div class="plus">
+            <img src="@/img/Plus.svg" alt="plus">
           </div>
+        </RouterLink>
+        <div class="vac_header">
+          <p>New Vacancies</p>
         </div>
-        <VacancyBox v-for="vacancy in latestVacancies" :key="vacancy.id" :vacancy="vacancy" class="column is-4" />
       </div>
-
-
-      <div class="vacInPr">
-        <div class="vacInPr_header">
-          <p>Vacancies in processing</p>
-        </div>
-        <VacancyInPrBox v-for="vacancy in VacanciesInProcessing" :key="vacancy.id" :vacancy="vacancy"
-          class="column is-4" />
-      </div>
+      <VacancyBox v-for="vacancy in latestVacancies" :key="vacancy.id" :vacancy="vacancy" class="column is-4" />
     </div>
 
+
+    <div class="vacInPr">
+      <div class="vacInPr_header">
+        <p>Vacancies in processing</p>
+      </div>
+      <VacancyInPrBox v-for="vacancy in VacanciesInProcessing" :key="vacancy.id" :vacancy="vacancy"
+        class="column is-4" />
+    </div>
   </div>
 
 </template>
@@ -51,14 +37,21 @@ import '@/assets/global.css';
 
 interface Vacancy {
   id: number;
-  comment: string;
+  date: Date;
   grade: string;
-  mark: number;
   stack: string;
+  instruments: string;
+  experience: number;
+  is_regular_staff: string;
+  is_urgent: boolean;
+  type: boolean;
   rate: number;
-  full_message: string;
-  // добавьте другие поля, если необходимо
+  location: string;
+  citizenship: string;
+  contact: string;
+  mark: number;
 }
+
 const axiosInstance = axios.create({
   baseURL: 'http://10.90.138.241:8000', // Change this to your backend URL
 });
@@ -99,14 +92,6 @@ export default defineComponent({
         console.error(error);
       }
     },
-    // async getVacanciesInPr(){
-    //   try {
-    //     const response = await axios.get('main/vacancies/');
-    //     this.VacanciesInProcessing = response.data as Vacancy[];
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
   }
 });
 </script>
