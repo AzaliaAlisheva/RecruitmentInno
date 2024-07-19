@@ -24,11 +24,6 @@ const routes: Array<RouteRecordRaw> = [
     component: CreateNewV
   },
   {
-    path: '/editVac',
-    name: 'editVac',
-    component: EditV
-  },
-  {
     path: '/vacancies/:id/',
     name: 'Specialists',
     component: SpecialistsMatching,

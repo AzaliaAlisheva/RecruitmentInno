@@ -41,7 +41,6 @@ import { defineComponent, PropType, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
 import DeletePopup from '@/components/DeletePopup.vue'
-import EditV from '@/component/EditV.vue';
 
 interface Vacancy {
   id: number;
