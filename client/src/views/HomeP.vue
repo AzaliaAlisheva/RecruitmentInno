@@ -1,28 +1,20 @@
 <template>
-   <!-- <img class="background-image1" src="@/img/Vector (1).svg" alt="background">
-   <img class="background-image2" src="@/img/Vector (2).svg" alt="background">
-    
-    
-      <div class="logo">
-      <h2 class="logo_p1">Recruitment</h2>
-      <img class="logo_p2" src="@/img/iu_logo_green 1.svg" alt="university logo ">
-    </div> -->
-    <div class="text">
-      <h1>We are glad to see you here!</h1>
+  <div class="text">
+    <h1>We are glad to see you here!</h1>
     <div class="links">
-   <RouterLink :to="`/vacancies`">
+      <RouterLink :to="`/vacancies`">
         <div class="vac">
-           <h2> All Vacancies Page</h2>
+          <h2> All Vacancies Page</h2>
         </div>
-  </RouterLink>
-  <RouterLink :to="`/about`">
+      </RouterLink>
+      <RouterLink :to="`/about`">
         <div class="about">
-           <h2> About Page</h2>
+          <h2> About Page</h2>
         </div>
-  </RouterLink>
+      </RouterLink>
     </div>
-    </div>
-   
+  </div>
+
 </template>
 <script lang="ts">
 import '@/assets/global.css';
@@ -43,12 +35,12 @@ interface Vacancy {
 export default defineComponent({
   name: 'HomeView',
   components: {
-   RouterLink
+    RouterLink
   }
 });
 </script>
 <style scoped>
-h1{
+h1 {
   font-family: League Spartan;
   font-size: 53px;
   font-weight: 500;
@@ -56,68 +48,76 @@ h1{
   margin: 0;
   text-shadow: 0px 4px 4px rgba(255, 255, 255, 0.25);
 }
-.background-image1{
+
+.background-image1 {
   position: fixed;
-    bottom: 24px;
-    left: -469px;
-    width: 153%;
+  bottom: 24px;
+  left: -469px;
+  width: 153%;
 }
-.background-image2{
+
+.background-image2 {
   position: fixed;
   bottom: 0;
   left: -115px;
   width: 115%;
 }
-.logo_p1{
+
+.logo_p1 {
   font-family: League Spartan;
   font-size: 27px;
   font-weight: 900;
   line-height: 32px;
-  color:#FFFFFF;
+  color: #FFFFFF;
   margin-left: 91px;
   margin-right: -79px;
   padding-top: 60px;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.logo{
+
+.logo {
   display: flex;
-   flex-direction: row;
-   justify-content: center;
+  flex-direction: row;
+  justify-content: center;
 }
-.text{
-   background-color: rgba(220, 220, 220, 0.356);
-   height: 110px;
-   margin-top: 60px;
-   background-size: 100%;
-   color: #ffffff;   
-   padding: 250px;
-   font-family: League Spartan;
-   font-size: 20px;
-   color: #1d1d1d;
-   text-decoration: none;
-   /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
-   gap: 7%;
+
+.text {
+  background-color: rgba(220, 220, 220, 0.356);
+  height: 110px;
+  margin-top: 60px;
+  background-size: 100%;
+  color: #ffffff;
+  padding: 250px;
+  font-family: League Spartan;
+  font-size: 20px;
+  color: #1d1d1d;
+  text-decoration: none;
+  /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+  gap: 7%;
 }
-.links{
-   display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 120px;
+
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 120px;
 }
-.vac{
-   font-size: 20px;
-   justify-self: start;
-   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-   color: #ffffff;
-   font-weight: 300;
-   text-decoration: none;
+
+.vac {
+  font-size: 20px;
+  justify-self: start;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-weight: 300;
+  text-decoration: none;
 }
-.about{
-   justify-self: start;
-   font-size: 20px;
-   justify-self: start;
-   color: #ffffff;
-   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+.about {
+  justify-self: start;
+  font-size: 20px;
+  justify-self: start;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 </style>
