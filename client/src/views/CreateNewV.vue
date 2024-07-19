@@ -3,19 +3,18 @@
     <div class="outer-container">
         <div class="container">
             <div class="input">
-                <input type="text" placeholder="Grade" v-model="vacancy.grade">
-                <input type="text" placeholder="Stack" v-model="vacancy.stack">
-                <input type="text" placeholder="Instruments" v-model="vacancy.instruments">
-                <input type="number" placeholder="Years of Experience" v-model="vacancy.experience" min="0" step="1">
-                <!-- <div class="reg"> -->
-                <!-- <input type="checkbox" v-model="vacancy.is_regular_staff" id="is_regular_staff"> -->
-                <!-- <label for="is_regular_staff">Is Regular Staff</label> -->
-                <!-- </div> -->
-                <input type="number" placeholder="Rate (e.g., per hour)" v-model="vacancy.rate" min="0" step="any">
-                <input type="text" placeholder="Location" v-model="vacancy.location">
-                <input type="text" placeholder="Citizenship" v-model="vacancy.citizenship">
-                <input type="tel" placeholder="Contact Number" v-model="vacancy.contact">
-                <button @click="createVacancy">Submit</button>
+                <input type="text" placeholder="Grade" v-model="vacancy.grade" required>
+                <input type="text" placeholder="Stack" v-model="vacancy.stack" required>
+                <input type="text" placeholder="Instruments" v-model="vacancy.instruments" required>
+                <input type="number" placeholder="Years of Experience" v-model="vacancy.experience" min="0" step="1"
+                    required>
+                <input type="number" placeholder="Rate (e.g., per hour)" v-model="vacancy.rate" min="0" step="any"
+                    required>
+                <input type="text" placeholder="Location" v-model="vacancy.location" required>
+                <input type="text" placeholder="Citizenship" v-model="vacancy.citizenship" required>
+                <input type="tel" placeholder="Contact Number" v-model="vacancy.contact" required>
+                <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+                <button class="submitButton" @click="validateForm">Submit</button>
             </div>
         </div>
     </div>
@@ -60,9 +59,18 @@ export default defineComponent({
                 citizenship: '',
                 contact: '',
             } as Vacancy,
+            errorMessage: '',
         };
     },
     methods: {
+        validateForm() {
+            if (this.vacancy.grade && this.vacancy.stack && this.vacancy.instruments && this.vacancy.experience && this.vacancy.rate &&
+                this.vacancy.location && this.vacancy.citizenship && this.vacancy.contact) {
+                this.createVacancy();
+            } else {
+                this.errorMessage = 'Please fill in all fields';
+            }
+        },
         async createVacancy() {
             try {
                 const response = await axios.post('main/vacancies/', {
@@ -81,7 +89,7 @@ export default defineComponent({
                     "contact": this.vacancy.contact,
                 });
                 console.log('Vacancy created successfully:', response.data);
-                alert('Vacancy created successfully:');
+                alert('Vacancy created successfully');
             } catch (error) {
                 if (axios.isAxiosError(error) && error.response) {
                     console.error('Error creating vacancy:', error.response.data, this.vacancy);
@@ -114,6 +122,18 @@ export default defineComponent({
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.submitButton {
+    padding: 20px;
+    border: 1px solid #E8E7E7;
+    box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
+    background: #E8E7E7;
+
+    color: rgb(0, 0, 0);
+    font-family: League Spartan;
+    font-size: 20px;
+    line-height: 18px;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -134,5 +154,10 @@ input[type="tel"] {
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
 }
 </style>

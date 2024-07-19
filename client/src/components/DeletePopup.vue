@@ -1,8 +1,8 @@
 <template>
     <main>
         <div class="popup">
-            <h1>Do you really want to delete this vacancy?</h1>
-            <div class="" popup-inner>
+            <h1 class="popup_header">Do you really want to delete this vacancy?</h1>
+            <div class="popup-inner">
                 <slot />
 
             </div>
@@ -17,6 +17,10 @@ export default {
 </script>
 
 <style scoped>
+.popup_header {
+    color: black;
+}
+
 .popup {
     position: fixed;
     top: 0;
@@ -24,14 +28,12 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 99;
-    background-color: black;
+    background-color: aliceblue;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.popup-inner {
-    background-color: aliceblue;
-    padding: 32px;
+    height: 30%;
+    /* width: 30%; */
+    align-self: center;
 }
 </style>

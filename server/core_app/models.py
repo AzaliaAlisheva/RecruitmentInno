@@ -57,9 +57,6 @@ class Vacancies(models.Model):
     def __str__(self):
         return self.stack
 
-class User(models.Model):
-    email = models.EmailField()
-
 class ConnectVacanciesWithSpecialists(models.Model):
     vacancy = models.ForeignKey('Vacancies', on_delete=models.CASCADE,null=True)
     specialist = models.ForeignKey('Specialists', on_delete=models.CASCADE,null=True)

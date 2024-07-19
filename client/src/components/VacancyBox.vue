@@ -13,10 +13,10 @@
       <img class="" :src="trash" alt="deletion" @click="triggerPopup">
     </div>
     <DeletePopup v-if="popupTriggers.buttonTrigger">
-      <button @click="deleteVacancy">
+      <button class="deleteButton" @click="deleteVacancy">
         Delete
       </button>
-      <button @click="triggerPopup">Go Back</button>
+      <button class="goBackButton" @click="triggerPopup">Go Back</button>
     </DeletePopup>
   </div>
 </template>
@@ -84,6 +84,34 @@ export default defineComponent({
 <style scoped>
 .deletion {
   padding: 5%;
+}
+
+.deleteButton {
+  padding: 20px;
+  border: 1px solid #E8E7E7;
+  /* margin-bottom: 20px; */
+  box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
+  background: #E8E7E7;
+
+  color: rgb(0, 0, 0);
+  font-family: League Spartan;
+  font-size: 20px;
+  /* font-weight: 400; */
+  line-height: 18px;
+}
+
+.goBackButton {
+  padding: 20px;
+  border: 1px solid #E8E7E7;
+  /* margin-bottom: 20px; */
+  box-shadow: 0px 4px 4px 0px rgba(241, 226, 226, 0.25);
+  background: #E8E7E7;
+
+  color: rgb(0, 0, 0);
+  font-family: League Spartan;
+  font-size: 20px;
+  /* font-weight: 400; */
+  line-height: 18px;
 }
 
 .vacancy {
