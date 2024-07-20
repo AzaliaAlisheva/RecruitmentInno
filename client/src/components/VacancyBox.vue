@@ -10,7 +10,7 @@
       </div>
     </RouterLink>
     <div class="actions">
-      <img class="" :src="trash" alt="deletion" @click="triggerPopup">
+      <img class="trashbox" :src="trash" alt="deletion" @click="triggerPopup">
       <img class="editButton" :src="editbutton" alt="edit" @click="triggerEdit">
     </div>
     <DeletePopup v-if="popupTriggers.buttonTrigger">
@@ -29,7 +29,7 @@
         <input type="text" placeholder="Location" v-model="vac.location" required>
         <input type="text" placeholder="Citizenship" v-model="vac.citizenship" required>
         <input type="tel" placeholder="Contact Number" v-model="vac.contact" required>
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <!-- <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p> -->
         <button class="submitButton" @click="editVacancy">Submit</button>
       </form>
     </div>
@@ -114,7 +114,7 @@ export default defineComponent({
     },
     async editVacancy() {
       try {
-        const response = await axios.put('main/vacancies/' + this.vacancy.id, {
+        const response = await axios.put('main/vacancies/' + this.vacancy.id + '/', {
           "chat_id": this.vac.id,
           "date": this.vac.date,
           "grade": this.vac.grade,
@@ -129,8 +129,8 @@ export default defineComponent({
           "citizenship": this.vac.citizenship,
           "contact": this.vac.contact,
         });
-        console.log('Vacancy created successfully:', response.data);
-        alert('Vacancy created successfully');
+        console.log('Vacancy updated successfully:', response.data);
+        alert('Vacancy updated successfully');
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
           console.error('Error creating vacancy:', error.response.data, this.vacancy);
@@ -273,9 +273,9 @@ input[type="tel"] {
 }
 
 @media(width: 1280px) {
-  .box_vacancy {
+  /* .box_vacancy {
     width: 450px;
-  }
+  } */
 
   .vac_data {
     font-size: 16px;
@@ -283,9 +283,9 @@ input[type="tel"] {
 }
 
 @media(width: 1440px) {
-  .box_vacancy {
+  /* .box_vacancy {
     width: 480px;
-  }
+  } */
 
   .vac_data {
     font-size: 16px;
@@ -302,14 +302,19 @@ input[type="tel"] {
   }
 }
 
-@media(width: 2560px) {
+@media(min-width: 2560px) {
   .box_vacancy {
-    width: 1000px;
+    width: 100%;
     height: auto;
   }
 
+  /* .trashbox {
+    width: 100%;
+    height: 100%;
+  } */
+
   .vac_data {
-    font-size: 32px;
+    font-size: 37px;
     line-height: 40px
   }
 }
@@ -320,8 +325,13 @@ input[type="tel"] {
     height: auto;
   }
 
+  .trashbox {
+    width: 100%;
+    height: 100%;
+  }
+
   .vac_data {
-    font-size: 35px;
+    font-size: 40px;
     line-height: 40px
   }
 }

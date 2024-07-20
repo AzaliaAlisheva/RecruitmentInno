@@ -83,7 +83,7 @@ h1 {
 
 .text {
   background-color: rgba(220, 220, 220, 0.356);
-  height: 110px;
+  height: 100%;
   margin-top: 60px;
   background-size: 100%;
   color: #ffffff;
@@ -120,4 +120,14 @@ h1 {
   color: #ffffff;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-</style>
+
+@media(min-width: 2560px) {
+  h1 {
+    font-size: 150px;
+  }
+
+  text {
+    height: 100%;
+  }
+}
+</style>s

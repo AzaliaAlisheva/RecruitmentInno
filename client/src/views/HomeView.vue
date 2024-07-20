@@ -95,7 +95,6 @@ export default defineComponent({
   }
 });
 </script>
-
 <style scoped>
 .head {
   display: flex;
@@ -113,9 +112,9 @@ export default defineComponent({
 .title {
   padding-top: 0px;
 
-  font-family: League Spartan;
+  font-family: 'Open Sans';
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 300;
 
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -132,8 +131,8 @@ export default defineComponent({
 
 .vac {
   padding-top: 31px;
-  width: 50%;
-  height: 495px;
+  width: 54%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,13 +144,13 @@ export default defineComponent({
 
 .vac_header {
   color: rgb(255, 255, 255);
-  font-family: 'League Spartan';
+  font-family: 'Open Sans';
   font-size: 22px;
   font-weight: 400;
   line-height: 30px;
   border-radius: 3px;
   background: rgb(73, 73, 73);
-  width: 300px;
+  width: 400px;
   height: 30px;
   display: flex;
   justify-content: center;
@@ -161,25 +160,26 @@ export default defineComponent({
 
 .vacInPr_header {
   color: rgb(255, 255, 255);
-  font-family: 'League Spartan';
+  font-family: 'Open Sans';
   font-size: 22px;
   font-weight: 400;
   line-height: 30px;
   /* Должен быть равен высоте для вертикального центрирования текста */
   border-radius: 3px;
   background: rgb(73, 73, 73);
-  width: 300px;
+  width: 400px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   margin: 30px;
 }
 
 .vacInPr {
   /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
   width: 50%;
-  height: 520px;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,7 +202,7 @@ export default defineComponent({
   }
 
   .vac_header {
-    width: 350px;
+    width: 90%;
     height: 30px;
     font-size: 18px;
   }
@@ -234,7 +234,10 @@ export default defineComponent({
 }
 
 
-@media(min-width: 2560px) {
+@media(width: 2560px) {
+  .tables {
+    padding-left: calc(50% - 1160px);
+  }
 
   .title {
     font-family: League Spartan;
@@ -252,10 +255,10 @@ export default defineComponent({
     padding-top: 31px;
     padding-bottom: 31px;
     border-radius: 3px;
+    width: 64%;
   }
 
   .vac_header {
-    width: 980px;
     height: 50px;
     font-size: 40px;
   }
@@ -272,8 +275,17 @@ export default defineComponent({
     height: 50px;
     font-size: 40px;
   }
+
+  .about {
+    font-size: 45px
+  }
+
+  h1 {
+    font-size: 75px;
+  }
 }
 
+/* 
 @media(width: 3840px) {
 
 
@@ -290,7 +302,7 @@ export default defineComponent({
   }
 
   .vac_header {
-    width: 1405px;
+   width: 1405px; 
     height: 80px;
     font-size: 60px;
   }
@@ -300,9 +312,9 @@ export default defineComponent({
   }
 
   .vacInPr_header {
-    width: 980px;
+    width: 800px;
     height: 80px;
     font-size: 59px;
   }
-}
+} */
 </style>

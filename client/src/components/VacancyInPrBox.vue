@@ -127,31 +127,31 @@ export default defineComponent({
 }
 
 @media(width: 1280px) {
-  .box_vacancy {
+  /* .box_vacancy {
     width: 450px;
-  }
+  } */
 }
 
 @media(width: 1440px) {
-  .box_vacancy {
+  /* .box_vacancy {
     width: 400px;
-  }
+  } */
 }
 
 @media(width: 1920px) {
-  .box_vacancy {
+  /* .box_vacancy {
     width: 550px;
-  }
+  } */
 }
 
-@media(width: 2560px) {
-  .box_vacancy {
+@media(min-width: 2560px) {
+  /* .box_vacancy {
     width: 750px;
 
-  }
+  } */
 
   .vac_data {
-    font-size: 32px;
+    font-size: 37px;
     line-height: 40px;
   }
 }
@@ -163,7 +163,7 @@ export default defineComponent({
   }
 
   .vac_data {
-    font-size: 38px;
+    font-size: 40px;
     line-height: 30px
   }
 }
