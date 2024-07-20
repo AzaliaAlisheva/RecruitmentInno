@@ -16,9 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Go into client folder
-        run: cd client
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -33,10 +30,13 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
+        working-directory: client
         run: npm install
 
       - name: Run eslint checks
+        working-directory: client
         run: npm run lint
 
       - name: Run svelte-check
+        working-directory: client
         run: npm run check
